@@ -31,8 +31,16 @@ const updateMessage = async (id, message) => {
     return result
 };
 
+const deleteMessage = async (id) => {
+  if (!id) {
+    throw new Error('Invalid Params')
+  }
+  return store.remove(id)
+}
+
 module.exports = {
   addMessage,
   getMessages,
   updateMessage,
+  deleteMessage
 };
