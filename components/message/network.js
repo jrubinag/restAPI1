@@ -7,9 +7,16 @@ const router = express.Router();
 router.get('/', (req, res) => {
   controller
     .getMessages()
-    .then((list) => response.success(req, res, list, 200)).catch(e => {
-      response.error(req,res,'unexpected error', 500, 'log interno del error')
-    })
+    .then((list) => response.success(req, res, list, 200))
+    .catch((e) => {
+      response.error(
+        req,
+        res,
+        'unexpected error',
+        500,
+        'log interno del error'
+      );
+    });
 });
 
 router.post('/', (req, res) => {
@@ -20,6 +27,18 @@ router.post('/', (req, res) => {
     })
     .catch((e) => {
       response.error(req, res, 'Informacion vacia invalida', 400);
+    });
+});
+
+router.patch('/:id', (req, res) => {
+  console.log('hjello there L', { id: req.params.id, text: req.body.message });
+  controller
+    .updateMessage(req.params.id, req.body.message)
+    .then((data) => {
+      response.success(req, res, data, 300);
+    })
+    .catch((e) => {
+      response.error(req, res, 'Error interno', 500, e);
     });
 });
 

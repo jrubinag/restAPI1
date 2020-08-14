@@ -23,7 +23,16 @@ const getMessages = () =>
     resolve(store.list());
   });
 
+const updateMessage = async (id, message) => {
+    if (!id || !message) {
+      throw new Error('Invalid data');
+    }
+    const result = await store.updateText(id, message);
+    return result
+};
+
 module.exports = {
   addMessage,
   getMessages,
+  updateMessage,
 };
