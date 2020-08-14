@@ -22,7 +22,13 @@ const addMessage = (message) => {
   myMessage.save();
 };
 
-const getMessages = async () => Model.find();
+const getMessages = async (filterUser) => {
+  let filter = {};
+  if (filterUser != null) {
+    filter = { user: filterUser };
+  }
+  return Model.find(filter);
+};
 
 const updateText = async (id, message) => {
   const foundMessage = await Model.findById({ _id: id });

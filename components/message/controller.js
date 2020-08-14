@@ -18,9 +18,9 @@ const addMessage = (user, message) => {
   });
 };
 
-const getMessages = () =>
+const getMessages = (filterUser) =>
   new Promise((resolve, reject) => {
-    resolve(store.list());
+    resolve(store.list(filterUser));
   });
 
 const updateMessage = async (id, message) => {
