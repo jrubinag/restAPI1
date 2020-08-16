@@ -4,6 +4,7 @@ MongoAtlas pass: QwHa49XONqb0bwlI
  */
 
 const Model = require('./model');
+const { populate } = require('./model');
 
 const addMessage = (message) => {
   const myMessage = new Model(message);
@@ -11,11 +12,27 @@ const addMessage = (message) => {
 };
 
 const getMessages = async (filterUser) => {
-  let filter = {};
-  if (filterUser != null) {
-    filter = { user: filterUser };
+  try {
+    let filter = {};
+    if (filterUser != null) {
+      filter = { user: filterUser };
+    }
+    //This references the field that is going to be used to link to other collection
+    const result = await Model.find(filter)
+      .populate('user')
+      .then((result) => {
+        return result;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    console.log('retrieved results', { result });
+    return result;
+  } catch (e) {
+    console.log('There was an unexpected error', { e });
+    throw e;
   }
-  return Model.find(filter);
 };
 
 const updateText = async (id, message) => {

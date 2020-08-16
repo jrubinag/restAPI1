@@ -7,8 +7,8 @@ const addUser = async (name) => {
   return store.add({ name });
 };
 
-const getUsers = async () => {
-  return store.get();
+const getUsers = async() => {
+  return store.get()
 };
 
 module.exports = {
